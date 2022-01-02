@@ -1,0 +1,134 @@
+How to link pages:
+
+Make new controller named ColorBookController:
+
+****ColorBookController****
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace WebApplicationMVC1.Controllers
+{
+    public class ColorBookController : Controller
+    {
+        // GET: ColorBook
+        public ActionResult RedPage()
+        {
+            return View();
+        }
+        public ActionResult BluePage()
+        {
+            return View();
+        }
+        public ActionResult GreenPage()
+        {
+            return View();
+        }
+        public ActionResult HomePage()
+        {
+            return View();
+        }
+    }
+}
+
+
+****HomePage.cshtml****
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>HomePage</title>
+</head>
+<body>
+    <div>
+        @Html.ActionLink("Red Page", "RedPage")
+        <br />
+        @Html.ActionLink("Blue Page", "BluePage")
+        <br />
+        @Html.ActionLink("Green Page", "GreenPage")
+    </div>
+</body>
+</html>
+
+
+****RedPage.cshtml****
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RedPage</title>
+</head>
+<body style="background-color:red">
+    <div>
+        <h1>Red Page</h1>
+        @Html.ActionLink("Home Page", "HomePage")
+    </div>
+</body>
+</html>
+
+
+****BluePage.cshtml****
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BluePage</title>
+</head>
+<body style="background-color:blue">
+    <div>
+        <h1>Blue Page</h1>
+        @Html.ActionLink("Home Page", "HomePage")
+    </div>
+</body>
+</html>
+
+
+
+****GreenPage.cshtml****
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GreenPage</title>
+</head>
+<body style="background-color:green">
+    <div>
+        <h1>Green Page</h1>
+        @Html.ActionLink("Home Page", "HomePage")
+    </div>
+</body>
+</html>
+
+
+

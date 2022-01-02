@@ -1,0 +1,47 @@
+How to create view:
+
+To add view rightclick on action method in controller and select add view
+Untick "Use a layout page"
+
+****Index.cshtml****
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        <h1>This is Index from Home Controller</h1>
+    </div>
+</body>
+</html>
+
+
+
+****HomeController.cs****
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace WebApplicationMVC1.Controllers
+{
+    public class HomeController : Controller
+    {
+        // GET: Home
+        public ActionResult Index()
+        {
+            return View();
+        }
+    }
+}

@@ -1,0 +1,197 @@
+Employee Management Sysytem using MVC
+
+Select MVC project insted of empty project
+
+****EmployeeController.cs****
+
+using EmployeeTemplateMVC.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace EmployeeManagementMVC.Controllers
+{
+
+    public class EmployeeController : Controller
+    {
+        static List<Employee> employees = new List<Employee>();
+
+        public EmployeeController()
+        {
+            if (employees.Count() == 0)
+            {
+                employees.Add(new Employee() { EmpID = 1, EmpName = "Rucha", EmpCity = "Pune" });
+                employees.Add(new Employee() { EmpID = 2, EmpName = "Akshay", EmpCity = "Bangalore" });
+                employees.Add(new Employee() { EmpID = 3, EmpName = "Akanksha", EmpCity = "Pune" });
+            }
+        }
+
+        // GET: Employee
+        public ActionResult Index()
+        {
+            return View(employees);
+        }
+
+        // GET: Employee/Details/5
+        public ActionResult Details(int id)
+        {
+            Employee emp = employees.Where(x => x.EmpID == id).SingleOrDefault();
+            return View(emp);
+        }
+
+        // GET: Employee/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Employee/Create
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                int EmpId = Convert.ToInt32(collection["EmpID"]);
+                string EmpName = collection["EmpName"];
+                string EmpCity = collection["EmpCity"];
+
+                employees.Add(new Employee() { EmpID = EmpId, EmpName = EmpName, EmpCity = EmpCity });
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Employee/Edit/5
+        public ActionResult Edit(int id)
+        {
+            Employee emp = employees.Where(x => x.EmpID == id).SingleOrDefault();
+            return View(emp);
+        }
+
+        // POST: Employee/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+                int EmpId = Convert.ToInt32(collection["EmpID"]);
+                string EmpName = collection["EmpName"];
+                string EmpCity = collection["EmpCity"];
+
+                Employee Newemp1 = new Employee() { EmpID = EmpId, EmpName = EmpName, EmpCity = EmpCity };
+                Employee Oldemp = employees.Where(x => x.EmpID == id).SingleOrDefault();
+                int index = employees.IndexOf(Oldemp);
+                employees[index] = Newemp1;
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Employee/Delete/5
+        public ActionResult Delete(int id)
+        {
+            Employee emp = employees.Where(x => x.EmpID == id).SingleOrDefault();
+            return View(emp);
+        }
+
+        // POST: Employee/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                Employee emp = employees.Where(x => x.EmpID == id).SingleOrDefault();
+                employees.Remove(emp);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
+}
+
+
+****HomeController.cs****
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace EmployeeTemplateMVC.Controllers
+{
+    public class HomeController : Controller
+    {
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+    }
+}
+
+****Index.cshtml****
+
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Employee Management System</h1>
+    <p class="lead">This application shows list of all the employees and also provides facility for add, edit, delete and view details of employees.</p>
+    <p><a href="@Url.Action("Index","Employee")" class="btn btn-primary btn-lg">All Employees &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Add new Employee</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Create","Employee")">New Employee &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Edit Existing Employee</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Index","Employee")">Edit Employee &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Delete Employee</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Index","Employee")">Delete Employee &raquo;</a></p>
+    </div>
+</div>
+
+

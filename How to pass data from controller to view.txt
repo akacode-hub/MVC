@@ -1,0 +1,93 @@
+How to pass data from controller to view:
+
+Create view using the standard steps.
+
+ways to pass data:
+1. ViewData
+2. ViewBag
+
+
+****MathController.cs****
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace WebApplicationMVC1.Controllers
+{
+    public class MathController : Controller
+    {
+        // GET: Math
+        public ActionResult OddEven(int id)
+        {
+            string result;
+            if (id % 2 == 0)
+            {
+                result= id+ " is even";
+            }
+            else
+            {
+                result= id + " is odd";
+            }
+
+            ViewData["myResult"] = result;
+
+            ViewBag.myResult = result;
+
+            ViewBag.num = id;
+
+            return View();
+        }
+    }
+}
+
+
+
+****OddEven.cshtml****
+
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OddEven</title>
+</head>
+<body>
+    <div>
+        view data:
+        <h1 style="color:red">
+            @ViewData["myResult"]
+
+        </h1>
+        <br />
+        view bag:
+        <h1 style="color:blue">
+            @ViewBag.myResult
+
+        </h1>
+        <br />
+        For Loop using C sharp:
+        <h1 style="color:rebeccapurple">
+            @for(int i=1; i<=Convert.ToInt32(ViewBag.num); i++)
+            {
+                @i;
+                <br />
+            }
+
+
+        </h1>
+
+
+
+    </div>
+</body>
+</html>
+

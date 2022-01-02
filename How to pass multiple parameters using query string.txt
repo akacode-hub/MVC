@@ -1,0 +1,38 @@
+How to pass multiple parameters using query string:
+
+
+Type url like query string in following manner:
+http://localhost:64693/home/Emp?empId=1&empName=Rucha&empCity=Pune
+
+
+Output: Employee Rucha with ID 1 is from Pune City
+
+
+****HomeController.cs****
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace WebApplicationMVC1.Controllers
+{
+    public class HomeController : Controller
+    {
+        // GET: Home
+        public string Index()
+        {
+            return "Hello";
+        }
+
+        public string Emp()
+        {
+            string empId = Request.QueryString["empId"];
+            string empName = Request.QueryString["empName"];
+            string empCity = Request.QueryString["empCity"];
+
+            return "Employee " + empName + " with ID " + empId + " is from " + empCity + " City.";
+        }
+    }
+}
